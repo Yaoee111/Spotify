@@ -1,0 +1,76 @@
+---
+title: "Exploring Radiohead's Discography: Moderate Tempo and Low Danceability as Key Features"
+author: "Yiyi Yao"
+thanks: "Code and data are available at: https://github.com/Yaoee111/Spotify"
+date: 09 October, 2024
+date-format: long
+format: pdf
+bibliography: references.bib
+---
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+library(here)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+options(scipen=999)
+```
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+radiohead  <- readRDS(here("data", "radiohead.rds"))
+```
+
+## Introduction
+
+Radiohead is one of the most influential alternative rock bands of the 21st century, known for their experimental music style. In this analysis, we explore some key audio features of Radiohead's songs using data retrieved from Spotify’s API.
+
+## Methodology
+
+Using the `spotifyr` package in R, we extracted the audio features for all of Radiohead’s available tracks. Audio features such as tempo, danceability, and energy are analyzed to find patterns in the band's music.
+
+## Results
+
+# Average Tempo of Radiohead's Songs
+
+```{r}
+#| warning: false
+#| message: false
+#| echo:    false
+#| label: tbl1
+#| fig-cap: Average Tempo of Radiohead's Songs
+
+avg_tempo <- radiohead %>%
+  summarise(avg_tempo = mean(tempo, na.rm = TRUE))
+
+avg_tempo
+```
+
+The average tempo of Radiohead’s songs is calculated at r avg_tempo$avg_tempo beats per minute (BPM), showing that their music often falls within a moderate tempo range.
+
+# Distribution of Danceability
+
+```{r}
+#| warning: false
+#| message: false
+#| echo:    false
+#| label: fig1
+#| fig-cap: Danceability of Radiohead's Songs
+
+
+ggplot(radiohead, aes(x = danceability)) +
+  geom_histogram(binwidth = 0.05, fill = "blue", color = "black") +
+  labs(x = "Danceability",
+       y = "Count")
+```
+
+The distribution of danceability values in Radiohead's songs shows that their music tends to have lower danceability scores, which aligns with their reputation for making complex, experimental tracks.
+
+## Discussion
+
+Our analysis of Radiohead's audio features reveals that their songs have a moderate tempo and lower danceability. This supports the view that Radiohead's music is less focused on danceability and more on experimental and intricate song structures. Future studies could include comparing these findings with other bands to explore broader patterns in alternative rock music.
